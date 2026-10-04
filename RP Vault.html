@@ -1,0 +1,183 @@
+<!DOCTYPE html><html lang="nl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>RP Vault</title>
+<style>
+:root{--bg:#0a0c11;--p:#11141c;--g:rgba(255,255,255,.045);--b:rgba(255,255,255,.09);--t:#e9ebf1;--m:#8a92a6;--a:#7c5cff;--a2:#22d3ee;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}html,body{margin:0;background:var(--bg);color:var(--t);font:15px/1.5 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+body{background:radial-gradient(900px 500px at 85% -10%,#2a1f5c55,transparent),radial-gradient(700px 400px at -10% 100%,#0e4a5a44,transparent),var(--bg);min-height:100vh}
+button,input,select,textarea{font:inherit;color:inherit}
+.shell{display:flex;min-height:100vh}
+.side{width:210px;padding:18px 12px;border-right:1px solid var(--b);position:sticky;top:0;height:100vh;overflow:auto;background:#0c0f15cc;backdrop-filter:blur(12px)}
+.logo{font-weight:800;font-size:20px;padding:4px 10px 16px;background:linear-gradient(90deg,var(--a),var(--a2));-webkit-background-clip:text;background-clip:text;color:transparent}
+.nv{display:flex;gap:10px;align-items:center;padding:9px 12px;border-radius:10px;color:var(--m);cursor:pointer;border:0;background:none;width:100%;text-align:left;transition:.15s;white-space:nowrap}
+.nv:hover{background:var(--g);color:var(--t)}.nv.on{background:linear-gradient(90deg,#7c5cff33,#22d3ee11);color:var(--t)}
+.main{flex:1;min-width:0;padding:18px 22px 110px;max-width:1100px;margin:0 auto}
+.top{display:flex;gap:10px;margin-bottom:18px}
+.top input{flex:1}
+input,select,textarea{background:#0d1017;border:1px solid var(--b);border-radius:10px;padding:9px 12px;width:100%;outline:none;transition:.15s}
+input:focus,select:focus,textarea:focus{border-color:var(--a)}
+input[type=checkbox]{width:auto;accent-color:var(--a)}input[type=range]{padding:0;accent-color:var(--a)}
+.btn{background:var(--g);border:1px solid var(--b);border-radius:10px;padding:9px 14px;cursor:pointer;transition:.15s;white-space:nowrap;width:auto}
+.btn:hover{border-color:var(--a);transform:translateY(-1px)}
+.pri{background:linear-gradient(90deg,var(--a),#5b8cff);border:0;font-weight:600}.dng{color:#ff7a8a}
+.card{background:var(--g);border:1px solid var(--b);border-radius:14px;padding:14px;backdrop-filter:blur(8px);margin-bottom:10px}
+.hv{cursor:pointer;transition:.18s;display:flex;gap:12px;align-items:flex-start}.hv:hover{transform:translateY(-2px);border-color:#7c5cff88;box-shadow:0 8px 24px #0006}
+.hv img{width:54px;height:54px;border-radius:12px;object-fit:cover;flex:none}
+.ct{min-width:0;flex:1}.ct small{display:block;color:var(--m)}.ct p{margin:4px 0 0;color:#c4c9d6;white-space:pre-wrap;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+h1{font-size:26px;margin:0 0 4px}h2{font-size:17px;margin:22px 0 10px;display:flex;align-items:center;gap:8px;justify-content:space-between}h3{margin:0 0 8px;font-size:15px}
+.muted{color:var(--m)}.grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(290px,1fr))}
+.hero{border-color:#7c5cff66;background:linear-gradient(135deg,#7c5cff22,#22d3ee0d)}
+.hero .big{font-size:17px;margin:2px 0 10px}.ul{margin:6px 0;padding-left:20px}
+.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.bar{height:8px;border-radius:6px;background:#ffffff14;overflow:hidden;margin:4px 0 8px}.bar i{display:block;height:100%;background:linear-gradient(90deg,var(--a),var(--a2))}
+.tag{font-size:12px;padding:2px 8px;border-radius:20px;background:#ffffff12;color:var(--m)}
+.ph{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:8px}.ph img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:10px;cursor:pointer;transition:.15s}.ph img:hover{transform:scale(1.03)}
+.avatar{width:110px;height:110px;border-radius:18px;object-fit:cover;background:#ffffff10;flex:none}
+.dos p{margin:0 0 8px;white-space:pre-wrap}.dos b{display:block;color:var(--m);font-size:12px;text-transform:uppercase;letter-spacing:.05em}
+#m{position:fixed;inset:0;background:#000a;backdrop-filter:blur(4px);display:none;align-items:center;justify-content:center;z-index:50;padding:12px}
+#m.on{display:flex}.mb{background:var(--p);border:1px solid var(--b);border-radius:16px;width:100%;max-width:640px;max-height:92vh;overflow:auto;padding:18px}
+.fg{display:grid;grid-template-columns:1fr 1fr;gap:10px}.fl{display:block}.fl.w{grid-column:1/-1}.fl span{font-size:12px;color:var(--m)}
+.pv{width:64px;height:64px;object-fit:cover;border-radius:10px;display:block;margin-bottom:6px}
+.fab{position:fixed;right:18px;bottom:22px;z-index:20;border-radius:30px;padding:13px 18px;box-shadow:0 8px 30px #7c5cff66}
+.cc{display:block;cursor:pointer;padding:0;overflow:hidden;transition:.18s}.cc:hover{transform:translateY(-3px);border-color:#7c5cff88;box-shadow:0 10px 30px #0007}.cc>img,.ph0{width:100%;height:210px;object-fit:cover;display:block}.ph0{display:flex;align-items:center;justify-content:center;font-size:56px;background:linear-gradient(135deg,#7c5cff33,#22d3ee22)}.cc .ct{padding:14px}.cc p{margin:8px 0 12px}.avatar{width:150px!important;height:150px!important}.kv{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:8px 18px}.kv div{margin:0}.kv b{display:block;color:var(--m);font-size:12px}
+.tabs{display:flex;gap:6px;overflow-x:auto;margin:14px 0 4px;padding-bottom:4px}.tb{background:var(--g);border:1px solid var(--b);border-radius:20px;padding:7px 14px;cursor:pointer;white-space:nowrap;transition:.15s}.tb:hover{border-color:var(--a)}.tb.on{background:linear-gradient(90deg,var(--a),#5b8cff);border-color:transparent;font-weight:600}
+.bot{display:none}
+#toast{position:fixed;left:50%;transform:translateX(-50%);bottom:90px;background:#1b1f2b;border:1px solid var(--b);padding:10px 16px;border-radius:10px;z-index:99;display:none}
+@media(max-width:800px){.side{display:none}.main{padding:14px 12px 140px}.fg{grid-template-columns:1fr}
+.bot{display:none;position:fixed;left:0;right:0;bottom:0;background:#0c0f15ee;backdrop-filter:blur(14px);border-top:1px solid var(--b);overflow-x:auto;padding:6px 6px calc(6px + env(safe-area-inset-bottom,0px));z-index:30}
+.bot .nv{flex-direction:column;gap:0;font-size:11px;padding:6px 12px;width:auto}.fab{bottom:calc(78px + env(safe-area-inset-bottom,0px))}#toast{bottom:150px}}
+</style></head><body>
+<div class="shell"><nav class="side"><div class="logo" data-v="dash" style="cursor:pointer">🎮 RP Vault</div><div id="nv"></div></nav>
+<div class="main"><div class="top"><button class="btn" data-v="dash" title="Home">🏠</button><input id="q" placeholder="🔎 Zoek in alles: characters, personen, sessies, notities…"></div><div id="v"><p class="muted">Laden…</p></div></div></div>
+<nav class="bot" id="bn"></nav><button class="btn pri fab" data-n="notes">＋ Quick Note</button>
+<div id="m"><div class="mb" id="mb"></div></div><div id="toast"></div>
+<script>
+const $=s=>document.querySelector(s),esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const REF={c:'characters',st:'stories',ss:'sessions'};
+const ST={Actief:'🟢',Wachtend:'🟡',Gepland:'🔵',Mislukt:'🔴',Afgerond:'⚫',Vertrouwd:'🟢',Neutraal:'🟡',Verdacht:'🟠',Vijand:'🔴',Onbekend:'⚫'};
+const E={
+characters:{l:'Characters',i:'👤',sub:['server','age','job','status'],body:'bio',s:['server|Server (FiveM)','first|Voornaam','last|Achternaam','nick|Bijnaam','age|Leeftijd|n','birth|Geboortedatum|d','gender|Geslacht','nat|Nationaliteit','birthplace|Geboorteplaats','city|Huidige woonplaats','job|Beroep','phone|Telefoon','plate|Kenteken','gang|Gang/factie','rel|Burgerlijke staat','status|Status|s|Actief;Inactief;Gepauzeerd;Gearresteerd;Overleden','money|Geld ($)|n','level|Level|n','avatar|Profielfoto|p','bio|Korte omschrijving|a','backstory|Backstory (volledig verhaal)|a','trait|Karakter|a','good|Goede eigenschappen|a','bad|Slechte eigenschappen|a','hobbies|Hobby\'s|a','fears|Angsten|a','ambitions|Ambities|a','family|Familie|a','friends|Vrienden|a','enemies|Vijanden|a','childhood|Jeugd|a','fam2|Familie (backstory)|a','past|Verleden|a','why|Waarom naar de stad?|a','pers|Persoonlijkheid|a','strong|Sterke punten|a','weak|Zwakke punten|a','secrets|Geheimen|a','goals|Doelen|a','rep|Reputatie|r','crim|Criminele reputatie|r','soc|Sociale status|r','prog|Story progress|r','fav|Favoriet|b']},
+stories:{l:'Storylines',i:'🔥',sub:['char','status'],body:'desc',s:['title|Titel','status|Status|s|Actief;Wachtend;Gepland;Mislukt;Afgerond','char|Character|c','start|Startdatum|d','progress|Voortgang|r','desc|Beschrijving|a','players|Betrokken spelers','people|Betrokken personen','locs|Belangrijke locaties','events|Belangrijke gebeurtenissen|a','goal|Doel','next|Volgende stap','end|Einddoel','fav|Favoriet|b']},
+sessions:{l:'RP Sessions',i:'🎬',sub:['char','story','dur'],body:'what',s:['n|Sessienummer|n','date|Datum|d','dur|Duur (uur)','char|Character|c','story|Storyline|st','what|Wat gebeurde er?|a','events|Belangrijke gebeurtenissen (1 per regel)|a','newp|Nieuwe personen|a','newl|Nieuwe locaties|a','changed|Wat is er veranderd?|a','open|Openstaande zaken (1 per regel)|a','next|Volgende RP|a']},
+notes:{l:'Memory & Notities',i:'🧠',sub:['cat','char','story'],body:'text',s:['text|Notitie|a','cat|Categorie|s|Algemeen;Mensen;Locaties;Gebeurtenissen;Geheimen;Beloftes;Schulden;Problemen;Belangrijke informatie;Openstaande zaken','char|Character|c','story|Storyline|st','sess|RP Session|ss','pin|📌 Vastzetten|b']},
+people:{l:'Personen',i:'👥',sub:['nick','job','rel'],body:'notes',s:['name|Naam','nick|Bijnaam','age|Leeftijd','job|Beroep','rel|Relatie met character','char|Character|c','status|Status|s|Vertrouwd;Neutraal;Verdacht;Vijand;Onbekend','first|Eerste ontmoeting|d','last|Laatste ontmoeting|d','photo|Foto|p','notes|Notities|a','secrets|Geheimen|a','past|Verleden|a','fav|Favoriet|b']},
+locations:{l:'Locaties',i:'🗺️',sub:['type','who'],body:'notes',s:['name|Naam','type|Type (garage, huis…)','who|Betrokken personen/characters','char|Character|c','img|Foto/screenshot|p','notes|Notities|a']},
+vehicles:{l:'Voertuigen',i:'🚗',sub:['plate','color','status','price'],body:'notes',s:['brand|Merk','model|Model','color|Kleur','plate|Kenteken','owner|Eigenaar','char|Character|c','status|Status|s|In bezit;Verkocht;Gestolen;Kapot;Impound','date|Aankoopdatum|d','price|Prijs ($)|n','img|Foto|p','damage|Schade','mods|Aanpassingen','notes|Notities|a']},
+money:{l:'Financiën',i:'💰',sub:['char','date'],s:['amount|Bedrag ($, − = uitgave)|n','desc|Omschrijving','char|Character|c','date|Datum|d']},
+goals:{l:'Goals',i:'🎯',sub:['char'],s:['text|Doel','char|Character|c','done|Behaald|b']},
+reminders:{l:'Agenda',i:'🔔',sub:['kind','date','char'],s:['text|Herinnering / afspraak','kind|Soort|s|Herinnering;RP Agenda','date|Datum|d','char|Character|c','done|Gedaan|b']},
+events:{l:'Tijdlijn',i:'🕐',sub:['char'],body:'text',s:['date|Datum|d','char|Character|c','text|Gebeurtenis|a']},
+clips:{l:'Clips',i:'🎞️',sub:['char','date'],body:'notes',s:['title|Titel','vid|Clip (video)|v','char|Character|c','story|Storyline|st','date|Datum|d','notes|Notities|a']},
+summ:{l:'Samenvattingen',i:'📝',sub:['char','date'],body:'text',s:['title|Titel','date|Datum|d','char|Character|c','text|Samenvatting|a']},
+photos:{l:'Foto\'s',i:'📸',sub:['cat','char','story'],s:['img|Foto|p','cap|Omschrijving','cat|Categorie|s|Profielfoto;Auto;Huis;Outfit;Vrienden;Locatie;RP-moment','char|Character|c','story|Storyline|st']}};
+const KIDS={characters:['reminders','events','summ','sessions','stories','clips','notes','people','vehicles','goals','money','photos'],stories:['sessions','notes','clips','photos']};
+const NAV=[['dash','🏠','Mijn Characters']];
+const F=t=>E[t].s.map(x=>{const[k,l,ty,o]=x.split('|');return{k,l,t:ty||'t',o:o?o.split(';'):[]}});
+let tab='info',D=[],col,asset,sample,view='dash',cur=null,prev='dash',filt={};
+const L=t=>D.filter(d=>d.t===t),R=id=>D.find(d=>d.id===id),fd=s=>s?new Date(s).toLocaleDateString('nl-NL',{day:'numeric',month:'long',year:'numeric'}):'';
+const T=d=>({characters:()=>`${d.first||''} ${d.last||''}`.trim(),vehicles:()=>`${d.brand||''} ${d.model||''}`.trim(),sessions:()=>'RP Session #'+(d.n||'?')+(d.date?' · '+fd(d.date):''),money:()=>(d.amount>=0?'+$':'−$')+Math.abs(d.amount||0)+' '+(d.desc||''),events:()=>fd(d.date)})[d.t]?.()||d.title||d.name||(d.text||d.cap||'').slice(0,70)||'(naamloos)';
+const sh=(d,f)=>{const v=d[f.k];if(v===''||v==null||v===false)return'';if(REF[f.t])return R(v)?T(R(v)):'';if(f.t==='d')return fd(v);if(f.t==='n'&&(f.k==='price'))return'$'+v;return v};
+const img=d=>{const f=F(d.t).find(f=>f.t==='p');return f&&d[f.k]?'/_blob/'+d[f.k]:''};
+const lines=s=>(s||'').split('\n').map(x=>x.replace(/^[-*•\s]+/,'').trim()).filter(Boolean);
+const by=(a,b)=>((b.date||'')+String(b.c||0).padStart(15,'0')).localeCompare((a.date||'')+String(a.c||0).padStart(15,'0'));
+const srt=a=>[...a].sort((a,b)=>(b.pin?1:0)-(a.pin?1:0)||(b.fav?1:0)-(a.fav?1:0)||by(a,b));
+function toast(s){const t=$('#toast');t.textContent=s;t.style.display='block';clearTimeout(t._t);t._t=setTimeout(()=>t.style.display='none',2600)}
+const bar=(l,v,at)=>`<div class="muted" style="font-size:12px">${l} · ${v||0}%</div><div class="bar"><i style="width:${v||0}%"></i></div>${at?`<input type="range" min="0" max="100" value="${v||0}" data-r="${at}">`:''}`;
+const card=d=>{const im=img(d),fs=F(d.t),sub=(E[d.t].sub||[]).map(k=>sh(d,fs.find(f=>f.k===k))).filter(Boolean).join(' · '),b=E[d.t].body&&d[E[d.t].body];
+ return `<div class="card hv" data-o="${d.t}:${d.id}">${'done'in d||d.t==='goals'||d.t==='reminders'?`<input type="checkbox" data-tg="${d.t}:${d.id}" ${d.done?'checked':''}>`:''}${im?`<img src="${im}">`:''}<div class="ct"><b>${d.pin?'📌 ':''}${d.fav?'⭐ ':''}${esc(T(d))}</b> ${d.status?`<span class="tag">${ST[d.status]||''} ${esc(d.status)}</span>`:''}<small>${esc(sub)}</small>${b?`<p>${esc(b)}</p>`:''}${d.vid?`<video src="/_blob/${d.vid}" controls preload="metadata" style="width:100%;border-radius:10px;margin-top:8px"></video>`:''}</div></div>`};
+const ccard=d=>{const im=img(d);return `<div class="card cc" data-o="characters:${d.id}">${im?`<img src="${im}">`:'<div class="ph0">👤</div>'}<div class="ct"><h3>${d.fav?'⭐ ':''}${esc(T(d))}</h3><div class="muted">${esc([d.age&&d.age+' jaar',d.job].filter(Boolean).join(' • '))}</div><div class="muted">${d.server?'🖥️ '+esc(d.server):''}</div><div>${ST[d.status]||''} ${esc(d.status||'')}</div><p>${esc(d.bio||'')}</p><button class="btn pri">Character openen</button></div></div>`};
+const empty=m=>`<p class="muted">${m}</p>`;
+/* ---------- views ---------- */
+function dash(){
+ if(!L('characters').length)return `<div class="card hero"><h1>Welkom bij RP Vault 👋</h1><p class="muted">Hier bewaar je al je characters, verhalen en RP-sessies. Begin met je eerste character.</p><button class="btn pri" data-n="characters">＋ + Nieuwe Character</button></div>`;
+ const s=[...L('sessions')].sort(by)[0],st=s&&R(s.story),ch=s&&R(s.char);
+ const ev=s&&lines(s.events).pop(),op=s?lines(s.open):[];
+ const rem=L('reminders').filter(r=>!r.done).sort((a,b)=>(a.date||'9').localeCompare(b.date||'9')).slice(0,5);
+ return `<div class="row" style="justify-content:space-between"><h1>Mijn Characters</h1><button class="btn pri" data-n="characters">+ Nieuwe Character</button></div><div class="grid" style="margin-bottom:18px">${srt(L('characters')).map(ccard).join('')}</div>
+ <div class="card hero"><h3>📍 Waar was ik gebleven?</h3>${s?`<p class="muted">Laatste RP: ${fd(s.date)||'—'} · Character: <b>${esc(ch?T(ch):'—')}</b>${st?' · Storyline: '+esc(T(st)):''}</p>
+ <div class="muted">Je was bezig met:</div><div class="big">${esc((s.what||'').slice(0,260)||'—')}</div>
+ ${ev?`<div class="muted">Laatste gebeurtenis:</div><div class="big">${esc(ev)}</div>`:''}
+ ${op.length?`<div class="muted">Openstaande zaken:</div><ul class="ul">${op.map(o=>`<li>${esc(o)}</li>`).join('')}</ul>`:''}
+ ${(s.next||st?.next)?`<div class="muted">Volgende stap:</div><div class="big">${esc(s.next||st.next)}</div>`:''}
+ <div class="row"><button class="btn pri" data-cont="1">▶️ Ga verder met storyline</button>${st?`<button class="btn" data-o="stories:${st.id}">Open storyline</button>`:''}<button class="btn" data-o="sessions:${s.id}">Bekijk sessie</button></div>`
+ :`<p class="muted">Nog geen sessies. Schrijf je eerste verslag na je volgende FiveM-sessie.</p><button class="btn pri" data-cont="1">＋ Eerste RP-sessie</button>`}</div>
+ <div class="grid"><div><h2>🔥 Actieve storylines</h2>${L('stories').filter(x=>x.status==='Actief').map(x=>`<div class="card hv" data-o="stories:${x.id}"><div class="ct"><b>${esc(T(x))}</b>${bar('Voortgang',x.progress)}</div></div>`).join('')||empty('Geen actieve storylines.')}</div>
+ <div><h2>🔔 Herinneringen</h2>${rem.map(card).join('')||empty('Geen openstaande herinneringen.')}</div>
+ <div><h2>📝 Recente notities</h2>${srt(L('notes')).slice(0,5).map(card).join('')||empty('Nog geen notities.')}</div>
+ <div><h2>👥 Recente personen</h2>${[...L('people')].sort((a,b)=>(b.c||0)-(a.c||0)).slice(0,5).map(card).join('')||empty('Nog geen personen.')}</div></div>`}
+function list(t,archive){const e=E[t],fs=F(t),sf=fs.find(f=>f.k==='status'),hc=fs.some(f=>f.k==='char');
+ return `<div class="row" style="justify-content:space-between"><h1>${archive?'📚 Story Archive':e.i+' '+e.l}</h1>${archive?'':`<button class="btn pri" data-n="${t}">＋ Nieuw</button>`}</div>
+ <div class="row" style="margin:10px 0"><input id="lf" placeholder="Filter…" style="flex:2;min-width:140px">${sf&&!archive?`<select id="ls" style="flex:1;min-width:120px"><option value="">Alle statussen</option>${sf.o.map(o=>`<option>${o}</option>`).join('')}</select>`:''}${hc?`<select id="lc" style="flex:1;min-width:120px"><option value="">Alle characters</option>${L('characters').map(c=>`<option value="${c.id}">${esc(T(c))}</option>`).join('')}</select>`:''}</div><div id="ll"></div>`}
+function paint(t,archive){const q=($('#lf')?.value||'').toLowerCase(),s=$('#ls')?.value,c=$('#lc')?.value;
+ let a=srt(L(t)).filter(d=>(!archive||d.status==='Afgerond')&&(!s||d.status===s)&&(!c||d.char===c)&&(!q||JSON.stringify(Object.values(d)).toLowerCase().includes(q)));
+ $('#ll').innerHTML=t==='characters'?`<div class="grid">${a.map(ccard).join('')}</div>`+(a.length?'':empty('Nog geen characters.')):a.map(card).join('')||empty(archive?'Nog geen afgeronde storylines.':'Niets gevonden. Voeg iets toe met “＋ Nieuw”.')}
+function page(t,id){const d=R(id);if(!d)return go('dash');const fs=F(t),im=img(d),sec=KIDS[t].map(k=>{const kk=t==='characters'?'char':'story',a=srt(L(k).filter(x=>x[kk]===id)),df=t==='characters'?`${k}:${id}`:`${k}:${d.char||''}:${id}`;
+  let sum='';if(k==='money'){const i=a.filter(x=>x.amount>0).reduce((s,x)=>s+x.amount,0),u=a.filter(x=>x.amount<0).reduce((s,x)=>s+x.amount,0);sum=`<p class="muted">Inkomsten $${i} · Uitgaven $${-u} · Saldo <b>$${i+u}</b></p>`}
+  return `<h2>${E[k].i} ${E[k].l} (${a.length}) <button class="btn" data-n="${df}">＋</button></h2>${sum}${k==='photos'?`<div class="ph">${a.map(p=>`<img src="/_blob/${p.img}" data-o="photos:${p.id}" title="${esc(p.cap||'')}">`).join('')}</div>`:a.map(card).join('')||empty('Nog niets.')}`});
+ const G=[['📋 Persoonlijke informatie',['server','nick','age','birth','gender','nat','birthplace','city','job','phone','plate','rel','gang','level','money'],1],['📖 Backstory',['backstory','childhood','fam2','past','why'],0],['🧠 Karakter',['trait','good','bad','hobbies','fears','strong','weak','secrets','ambitions','goals'],0],['👥 Familie, vrienden & vijanden',['family','friends','enemies'],0]];
+ const sf=k=>fs.find(f=>f.k===k),vl=k=>{const f=sf(k);return f&&d[k]!==''&&d[k]!=null?esc(sh(d,f)):''};
+ const dos=t==='characters'?`<div class="card dos"><h3>📋 Persoonlijke informatie <button class="btn" data-o="${t}:${id}" data-edit="1" style="float:right">✏️ Bewerken</button></h3><div class="kv"><div><b>Volledige naam</b>${esc(T(d))}</div>${G[0][1].map(k=>vl(k)?`<div><b>${sf(k).l}</b>${vl(k)}</div>`:'').join('')}</div></div>`+G.slice(1).map(g=>`<div class="card dos"><h3>${g[0]}</h3>${g[1].map(k=>vl(k)?`<p><b>${sf(k).l}</b>${vl(k)}</p>`:'').join('')||'<p class="muted">Nog niets ingevuld — klik op ✏️ Bewerken.</p>'}</div>`).join(''):fs.filter(f=>!['p','v','r','b'].includes(f.t)&&d[f.k]!==''&&d[f.k]!=null).map(f=>`<p><b>${f.l}</b>${esc(sh(d,f))}</p>`).join('');
+ const bars=fs.filter(f=>f.t==='r').map(f=>bar(f.l,d[f.k],`${t}:${id}:${f.k}`)).join('');
+ const ks=KIDS[t],isC=t==='characters',tabs=isC?`<div class="tabs"><button class="tb ${tab==='info'?'on':''}" data-tab="info">📋 Profiel</button>${ks.map(k=>`<button class="tb ${tab===k?'on':''}" data-tab="${k}">${E[k].i} ${E[k].l}</button>`).join('')}</div>`:'',body=isC?(tab==='info'?dos:sec[ks.indexOf(tab)]||''):(dos?`<div class="card dos">${dos}</div>`:'')+sec.join('');
+ return `<button class="btn" ${isC?'data-v="dash">← Mijn Characters':d.char&&R(d.char)?`data-o="characters:${d.char}">← ${esc(T(R(d.char)))}`:'data-v="dash">← Home'}</button><div class="card" style="margin-top:12px"><div class="row" style="align-items:flex-start">${t==='characters'?(im?`<img class="avatar" src="${im}">`:'<div class="avatar"></div>'):''}<div style="flex:1;min-width:200px"><h1>${d.fav?'⭐ ':''}${esc(T(d))}</h1><div class="muted">${t==='characters'?esc([d.age&&d.age+' jaar',d.job,d.city,d.server&&'🖥️ '+d.server].filter(Boolean).join(' • '))+(d.nick?` · “${esc(d.nick)}”`:''):esc(sh(d,fs.find(f=>f.k==='char'))||'')} ${d.status?`<span class="tag">${ST[d.status]||''} ${esc(d.status)}</span>`:''}</div><p>${esc(d.bio||'')}</p><div class="row"><button class="btn" data-o="${t}:${id}" data-edit="1">✏️ Bewerken</button><button class="btn" data-fav="${t}:${id}">${d.fav?'★ Favoriet':'☆ Favoriet'}</button><button class="btn pri" data-cont="${t}:${id}">▶️ Nieuwe sessie</button>${t==='characters'?`<button class="btn" data-sum="${id}">✨ Samenvatting</button>`:''}</div></div></div>${isC&&tab!=='info'?'':bars}</div>${tabs}${body}`}
+function summary(){const cs=L('characters');if(!cs.length)return `<h1>✨ Samenvatting</h1>`+empty('Maak eerst een character.');const c=R(cur)&&R(cur).t==='characters'?R(cur):cs[0];
+ const ss=L('sessions').filter(x=>x.char===c.id).sort(by),ps=L('people').filter(x=>x.char===c.id),op=ss.flatMap(x=>lines(x.open)).slice(-8),act=L('stories').filter(x=>x.char===c.id&&x.status==='Actief');
+ const li=a=>a.length?`<ul class="ul">${a.map(x=>`<li>${esc(x)}</li>`).join('')}</ul>`:'<p class="muted">—</p>';
+ return `<h1>✨ Samenvatting</h1><div class="row"><select id="sc" style="max-width:260px">${cs.map(x=>`<option value="${x.id}" ${x.id===c.id?'selected':''}>${esc(T(x))}</option>`).join('')}</select>${sample?`<button class="btn pri" id="ai">✨ Maak samenvatting met AI</button>`:'<span class="muted">AI niet beschikbaar in deze weergave</span>'}</div><div class="card" id="ao" style="display:none;white-space:pre-wrap"></div>
+ <div class="grid"><div class="card"><h3>Wat is er gebeurd?</h3>${li(ss.slice(-4).map(x=>(x.date?fd(x.date)+': ':'')+(x.what||'').slice(0,160)))}</div><div class="card"><h3>Wie zijn belangrijk?</h3>${li(ps.map(x=>T(x)+(x.status?' ('+x.status+')':'')))}</div>
+ <div class="card"><h3>Wat weet mijn character?</h3>${li(L('notes').filter(x=>x.char===c.id&&x.cat!=='Geheimen').slice(0,6).map(x=>x.text))}</div><div class="card"><h3>Geheimen / nog niet bekend</h3>${li([...L('notes').filter(x=>x.char===c.id&&x.cat==='Geheimen').map(x=>x.text),...ps.map(x=>x.secrets).filter(Boolean)].slice(0,6))}</div>
+ <div class="card"><h3>Lopende storylines</h3>${li(act.map(x=>T(x)+' — '+(x.next||'geen volgende stap')))}</div><div class="card"><h3>Logische volgende stap</h3>${li([...new Set([...act.map(x=>x.next),...ss.slice(-1).map(x=>x.next),...op].filter(Boolean))].slice(0,6))}</div></div>`}
+function searchV(q){const r=D.filter(d=>JSON.stringify(Object.values(d)).toLowerCase().includes(q.toLowerCase())),g={};r.forEach(d=>(g[d.t]=g[d.t]||[]).push(d));
+ return `<h1>Zoekresultaten voor “${esc(q)}”</h1>`+(Object.keys(g).map(t=>`<h2>${E[t].i} ${E[t].l} (${g[t].length})</h2>${g[t].map(card).join('')}`).join('')||empty('Niets gevonden.'))}
+/* ---------- core ---------- */
+function go(v,id){prev=view;view=v;cur=id||null;render();scrollTo(0,0)}
+function render(){const q=$('#q').value.trim(),v=$('#v');
+ $('#nv').innerHTML=$('#bn').innerHTML=NAV.map(n=>`<button class="nv ${view===n[0]||(view==='page'&&R(cur)?.t===n[0])?'on':''}" data-v="${n[0]}"><span>${n[1]}</span>${n[2]}</button>`).join('');
+ if(q){v.innerHTML=searchV(q);return}
+ if(view==='dash')v.innerHTML=dash();else if(view==='summary')v.innerHTML=summary();else if(view==='page')v.innerHTML=page(R(cur)?.t,cur);
+ else if(view==='archive'){v.innerHTML=list('stories',1);paint('stories',1)}else{v.innerHTML=list(view);paint(view)}}
+function form(t,id,def={}){const d=id?R(id):def,mb=$('#mb');
+ mb.innerHTML=`<h2>${E[t].i} ${id?'Bewerken':'Nieuw'}: ${E[t].l}</h2><div class="fg">${F(t).map(f=>{const v=d[f.k]??'',i='f_'+f.k;let x;
+ if(f.t==='a')x=`<textarea id=${i} rows=4>${esc(v)}</textarea>`;else if(f.t==='s')x=`<select id=${i}>${f.o.map(o=>`<option ${o==v?'selected':''}>${o}</option>`).join('')}</select>`;
+ else if(REF[f.t])x=`<select id=${i}><option value="">—</option>${L(REF[f.t]).map(r=>`<option value="${r.id}" ${r.id===v?'selected':''}>${esc(T(r))}</option>`).join('')}</select>`;
+ else if(f.t==='b')x=`<input type=checkbox id=${i} ${v?'checked':''}>`;else if(f.t==='p'||f.t==='v')x=(v?(f.t==='v'?'<small class=muted>✔ Clip opgeslagen — kies een bestand om te vervangen</small>':`<img class=pv src="/_blob/${v}">`):'')+(asset?`<input type=file id=${i} accept="${f.t==='v'?'video/*':'image/*'}">`:'<small class=muted>Foto-upload niet beschikbaar</small>');
+ else if(f.t==='r')x=`<input type=range id=${i} min=0 max=100 value=${v||0}>`;else x=`<input id=${i} type=${f.t==='n'?'number':f.t==='d'?'date':'text'} value="${esc(v)}">`;
+ return `<label class="fl ${f.t==='a'?'w':''}"><span>${f.l}</span>${x}</label>`}).join('')}</div>
+ <div class="row" style="margin-top:14px;justify-content:space-between"><div class="row"><button class="btn pri" id="sv">Opslaan</button><button class="btn" id="cl">Annuleren</button></div>${id?'<button class="btn dng" id="dl">🗑 Verwijderen</button>':''}</div>`;
+ $('#m').classList.add('on');$('#cl').onclick=()=>$('#m').classList.remove('on');
+ $('#sv').onclick=async()=>{const b=$('#sv');b.disabled=true;const v={...(id?R(id):{}),t};
+  for(const f of F(t)){const el=$('#f_'+f.k);if(!el)continue;if(f.t==='p'||f.t==='v'){const fl=el.files?.[0];if(fl){try{v[f.k]=(await asset.upload(fl)).id}catch(e){toast('Upload mislukt: '+(e.message||e.code));b.disabled=false;return}}}else v[f.k]=f.t==='b'?el.checked:(f.t==='n'||f.t==='r')?(el.value===''?'':+el.value):el.value.trim()}
+  if(T(v)==='(naamloos)'){toast('Vul minimaal een naam/titel/tekst in');b.disabled=false;return}
+  const nid=id||t+'_'+Date.now().toString(36)+Math.random().toString(36).slice(2,6);if(!id)v.c=Date.now();
+  try{await col.doc(nid).set(v);$('#m').classList.remove('on');toast('Opgeslagen ✔')}catch(e){toast('Opslaan mislukt: '+(e.message||e.code));b.disabled=false}};
+ if(id)$('#dl').onclick=async()=>{const b=$('#dl');if(!b._s){b._s=1;b.textContent='Zeker weten? Klik nogmaals';return}
+  try{if(t==='characters')for(const k of D.filter(x=>x.char===id))await col.doc(k.id).delete();await col.doc(id).delete();$('#m').classList.remove('on');if(view==='page'&&cur===id)go(prev==='page'?'dash':prev);toast('Verwijderd')}catch(e){toast('Mislukt: '+(e.message||e.code))}}}
+function defaults(t){const p=view==='page'?R(cur):null,d={};if(p?.t==='characters')d.char=p.id;if(p?.t==='stories'){d.story=p.id;d.char=p.char||''}
+ if(t==='sessions'){d.n=L('sessions').length+1;d.date=new Date().toISOString().slice(0,10)}if(['events','money','reminders','clips','summ'].includes(t))d.date=new Date().toISOString().slice(0,10);return d}
+document.addEventListener('click',async e=>{const g=a=>e.target.closest(`[${a}]`);let x;
+ if(g('data-tg')||e.target.matches('[data-r],video'))return;
+ if(x=g('data-tab')){tab=x.dataset.tab;return render()}
+ if(x=g('data-edit')){const[t,id]=x.dataset.o.split(':');return form(t,id)}
+ if(x=g('data-fav')){const[t,id]=x.dataset.fav.split(':');return col.doc(id).update({fav:!R(id).fav})}
+ if(x=g('data-sum')){cur=x.dataset.sum;return go('summary',cur)}
+ if(x=g('data-cont')){const v=x.dataset.cont,d=defaults('sessions');
+  if(v.includes(':')){const[t,id]=v.split(':');if(t==='characters')d.char=id;else{d.story=id;d.char=R(id).char||''}}
+  else{const s=[...L('sessions')].sort(by)[0];if(s){d.char=s.char||'';d.story=s.story||''}else{const c=L('characters')[0];d.char=c?.id||''}}return form('sessions',null,d)}
+ if(x=g('data-o')){const[t,id]=x.dataset.o.split(':');return(t==='characters'||t==='stories')?(($('#q').value='',t==='characters'&&(tab='info'),go('page',id))):form(t,id)}
+ if(x=g('data-n')){const[t,a,b]=x.dataset.n.split(':'),d=defaults(t);if(a!==undefined){if(t!==undefined&&!b)d.char=a;else{d.char=a;d.story=b}}return form(t,null,d)}
+ if(x=g('data-v')){$('#q').value='';return go(x.dataset.v)}
+ if(e.target.id==='ai'){const c=R($('#sc').value),o=$('#ao');o.style.display='block';o.textContent='Bezig…';
+  const ctx=JSON.stringify(D.filter(d=>d.id===c.id||d.char===c.id).map(({c,...r})=>r)).slice(0,14000);
+  try{await sample(`Je bent een RP-assistent. Dit is alle opgeslagen data van een FiveM-character (JSON). Schrijf in het Nederlands een overzicht met koppen: Wat is er gebeurd, Wie zijn belangrijk, Wat weet mijn character, Wat weet mijn character nog niet, Openstaande verhaallijnen, Logische volgende stap. Verzin niets dat niet in de data staat.\n\n${ctx}`,{cache:false,onText:r=>o.textContent=r.text})}catch(er){o.textContent='AI mislukt: '+(er.message||er.code)}}
+ if(e.target.id==='m')$('#m').classList.remove('on')});
+document.addEventListener('change',async e=>{const t=e.target;
+ if(t.dataset.tg){const[ty,id]=t.dataset.tg.split(':');col.doc(id).update({done:t.checked})}
+ if(t.dataset.r){const[ty,id,k]=t.dataset.r.split(':');col.doc(id).update({[k]:+t.value})}
+ if(t.id==='sc'){cur=t.value;render()}});
+document.addEventListener('input',e=>{const i=e.target.id;if(i==='lf')paint(view==='archive'?'stories':view,view==='archive');if(i==='q')render()});
+document.addEventListener('change',e=>{if(e.target.id==='ls'||e.target.id==='lc')paint(view==='archive'?'stories':view,view==='archive')});
+(async()=>{render();
+ const cl=window.claude;if(!cl?.use){$('#v').innerHTML='<div class="card">Open deze pagina via claude.ai om in te loggen en je gegevens op te slaan.</div>';return}
+ const u=await cl.use('user'),db=await cl.use('db');if(!u||!db){$('#v').innerHTML='<div class="card">Inloggen via claude.ai is nodig om je gegevens te laden.</div>';return}
+ asset=await cl.use('assets');sample=await cl.use('sample');
+ col=db.collection('data/users/'+await u.id());
+ col.onSnapshot(s=>{D=s.docs.map(d=>({id:d.id,...d.data()}));if(!$('#m').classList.contains('on')||true){const a=document.activeElement;if(!(a&&['lf','q'].includes(a.id)))render();else if(a.id==='q')render()}},e=>toast('Fout: '+(e.message||e.code)))})();
+</script></body></html>
